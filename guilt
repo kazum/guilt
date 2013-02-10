@@ -422,12 +422,8 @@ head_check()
 # usage: series_insert_patch <patchname>
 series_insert_patch()
 {
-	awk -v top="`get_top`" -v new="$1" \
-		'BEGIN{if (top == "") print new;}
-		{
-			print $0;
-			if (top != "" && top == $0) print new;
-		}' "$series" > "$series.tmp"
+	cp "$series" "$series.tmp"
+	echo "$1" >> "$series.tmp"
 	mv "$series.tmp" "$series"
 }
 
